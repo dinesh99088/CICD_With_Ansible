@@ -16,9 +16,11 @@ pipeline {
 
       }
       steps {
-        ws(dir: '/opt/copy_jar')
-        git(url: 'https://github.com/dinesh99088/CICD_With_Ansible', branch: 'DEV-Ansible', changelog: true, poll: true)
-        sh 'ansible-playbook copy.yml'
+        ws(dir: '/opt/copy_jar') {
+          git(url: 'https://github.com/dinesh99088/CICD_With_Ansible', branch: 'DEV-Ansible', changelog: true, poll: true)
+          sh 'ansible-playbook copy.yml'
+        }
+
       }
     }
 

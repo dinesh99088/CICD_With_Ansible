@@ -16,7 +16,7 @@ pipeline {
 
       }
       steps {
-        ws(dir: '/opt/') {
+        ws(dir: '/home/ansible/git_env') {
           git(url: 'https://github.com/dinesh99088/CICD_With_Ansible', branch: 'DEV-Ansible', changelog: true, poll: true)
           sh 'ansible-playbook copy.yml'
         }

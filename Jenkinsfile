@@ -2,7 +2,6 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      agent any
       steps {
         git(url: 'https://github.com/dinesh99088/offers', branch: 'master', changelog: true, poll: true)
         sh 'mvn compile test package'

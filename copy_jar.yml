@@ -1,0 +1,32 @@
+- hosts: Jenkins
+  remote_user: jenkins
+  tasks:
+    - name: check the jar file from the jenkins server
+      stat:
+         path: /var/lib/jenkins/workspace/Maven_demo/target/offers-0.1.0.jar
+      register: jar_exists
+
+    - name: copy jar to remote
+      fetch:
+         src: /var/lib/jenkins/workspace/Maven_demo/target/offers-0.1.0.jar
+         dest: /home/ansible/
+         flat: yes
+      when: jar_exists.stat.exists
+
+- hosts: Tomcat
+  remote_user: tomcat
+  tasks:
+    - name: check the jar file
+      stat:
+        path: /home/ansible/offers-0.1.0.jar
+      register: ansible_jar_exists
+      delegate_to: localhost
+
+    - name: copy to the tomcat server
+      copy:
+        src: /home/ansible/offers-0.1.0.jar
+        dest: /home/tomcat/apache-tomcat-8.5.55/webapps/
+      when: ansible_jar_exists.stat.exists
+
+
+         

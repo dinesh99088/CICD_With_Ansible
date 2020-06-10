@@ -3,12 +3,12 @@
   tasks:
     - name: check the jar file from the jenkins server
       stat:
-         path: /var/lib/jenkins/workspace/Maven_demo/target/offers-0.1.0.jar
+         path: /var/lib/jenkins/workspace/CICD_With_Ansible/target/offers-0.1.0.jar
       register: jar_exists
 
     - name: copy jar to remote
       fetch:
-         src: /var/lib/jenkins/workspace/Maven_demo/target/offers-0.1.0.jar
+         src: /var/lib/jenkins/workspace/CICD_With_Ansible/target/offers-0.1.0.jar
          dest: /home/ansible/
          flat: yes
       when: jar_exists.stat.exists
